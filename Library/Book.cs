@@ -6,5 +6,11 @@ namespace Library
 {
     internal class Book
     {
+        public static void hello()
+        {
+            Console.WriteLine("Hello, Fahed!");
+
+        }
     }
+
 }
