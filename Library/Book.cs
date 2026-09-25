@@ -57,8 +57,8 @@ namespace Library
 
         public void SetName(string name)
         {
-            if (name==null) throw new ArgumentException("book name cannot be null");
-            if (string.IsNullOrWhiteSpace(name)) throw new Exception("book name cannot be whitespaces");
+            if (name==null) throw new ArgumentException("Book name cannot be empty.", nameof(name));
+            if (string.IsNullOrWhiteSpace(name)) throw new ArgumentException("book name cannot be whitespaces", nameof(name));
             this._Name = name;
         }
         public void SetYearOfPublication(int year)
@@ -74,7 +74,7 @@ namespace Library
         public void SetType(BookType type)
         {
             if (!Enum.IsDefined(typeof(BookType), type)) throw new ArgumentException("invalid book type.", nameof(type));
-            else this._Type = type;
+            this._Type = type;
         }
 
     }
