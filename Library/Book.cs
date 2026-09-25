@@ -5,11 +5,11 @@ using System.Text;
 
 namespace Library
 {
-    enum BookType
+    public enum BookType
     {
         Fiction, NonFiction, Kids, Academic, Reference
     }
-    internal class Book
+    public class Book
     {
         private string _Name;
         private int _Year_of_publication;
@@ -18,7 +18,7 @@ namespace Library
 
         public override string ToString()
         {
-            return "Book's details: \n" +
+            return "Book's details: " + "\n"+
                               "book's name: " + this._Name + " \n" + 
                               "published at: " + this._Year_of_publication + "\n" +
                               "written by: " + this._Author + " \n" +
@@ -30,7 +30,7 @@ namespace Library
             if (!Enum.IsDefined(typeof(BookType), type)) throw new ArgumentException("invalid book type.", nameof(type));
             if (year > now.Year) throw new ArgumentException("invalid publication year.", nameof(year));
             if (name == null) throw new ArgumentException("book name cannot be null");
-            if (string.IsNullOrWhiteSpace(name)) throw new Exception("book name cannot be whitespaces");
+            if (string.IsNullOrWhiteSpace(name)) throw new ArgumentException("book name cannot be whitespaces");
 
             this._Name = name;
             this._Year_of_publication = year;

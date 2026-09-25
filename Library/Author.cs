@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Library
 {
-    internal class Author
+    public class Author
     {
+
     }
 }

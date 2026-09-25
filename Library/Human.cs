@@ -5,14 +5,18 @@ using System.Xml.Linq;
 
 namespace Library
 {
-    internal class Human 
+    public class Human 
     {
         private string _Name;
         private int _BirthYear;
         private string _Nationality;
 
-        //protected virtual string ToString();
-
+        public override string ToString()
+        {
+            return "Name: " + this._Name + "\n" +
+                   "Birth year: " + this._BirthYear + "\n" +
+                   "Nationality: " + this._Nationality;
+        }
         protected Human(string name, int birthyear, string nationality)
         {
             if (birthyear > DateTime.Now.Year) throw new ArgumentException("invalid birth-year. ", nameof(birthyear));
@@ -56,6 +60,10 @@ namespace Library
             if (name == null) throw new ArgumentException("human name cannot be empty.", nameof(name));
             if (string.IsNullOrWhiteSpace(name)) throw new ArgumentException("human name cannot be whitespaces", nameof(name));
             this._Name = name;
+        }
+        protected int GetAge()
+        {
+            return DateTime.Now.Year - this._BirthYear;
         }
     }
 }
