@@ -14,7 +14,9 @@ namespace Library
         private string _Name;
         private int _BirthYear;
         private string _Nationality;
-        protected readonly Gender _Gender;
+        private readonly Gender _Gender;
+        private readonly int _ID;
+        private static int _NextID=1;
 
 
         public override string ToString()
@@ -26,12 +28,16 @@ namespace Library
         }
         protected Human(string name, int birthyear, string nationality, Gender gender)
         {
+
             if (birthyear > DateTime.Now.Year) throw new ArgumentException("invalid birth-year. ", nameof(birthyear));
             if (name == null) throw new ArgumentException("name cannot be empty.", nameof(name));
             if (string.IsNullOrWhiteSpace(name)) throw new ArgumentException("name cannot be whitespaces", nameof(name));
             if (nationality == null) throw new ArgumentException("nationality cannot be empty.", nameof(nationality));
             if (string.IsNullOrWhiteSpace(nationality)) throw new ArgumentException("nationality cannot be whitespaces", nameof(nationality));
             if (!Enum.IsDefined(typeof(Gender), gender)) throw new ArgumentException("Invalid gender.", nameof(gender));
+
+            _ID = _NextID;
+            _NextID++;
 
             this._Name = name;
             this._BirthYear = birthyear;

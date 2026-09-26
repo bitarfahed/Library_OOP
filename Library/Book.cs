@@ -50,7 +50,7 @@ namespace Library
         {
             return this._Author;
         }
-        public BookType GetType()
+        public BookType GetBookType()
         {
             return this._Type;
         }
