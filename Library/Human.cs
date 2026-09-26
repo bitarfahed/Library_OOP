@@ -15,7 +15,7 @@ namespace Library
         private int _BirthYear;
         private string _Nationality;
         protected readonly Gender _Gender;
-        public static int _Human_counter=0;
+
 
         public override string ToString()
         {
@@ -26,7 +26,6 @@ namespace Library
         }
         protected Human(string name, int birthyear, string nationality, Gender gender)
         {
-            _Human_counter++;
             if (birthyear > DateTime.Now.Year) throw new ArgumentException("invalid birth-year. ", nameof(birthyear));
             if (name == null) throw new ArgumentException("name cannot be empty.", nameof(name));
             if (string.IsNullOrWhiteSpace(name)) throw new ArgumentException("name cannot be whitespaces", nameof(name));
@@ -40,13 +39,6 @@ namespace Library
             this._Gender = gender;
         }
 
-
-        public static int GetHumansCounter() 
-            /*Human.GetHumansCounter beacuse it is a class object.
-            without static it would be obj.GetHumansCounter and this is illegal because HumanCounter is defined as static */
-        {
-            return _Human_counter;
-        }
         protected string GetName()
         {
             return this._Name;
