@@ -35,6 +35,7 @@ namespace Library
             this._Year_of_publication = year;
             this._Author = author;
             this._Type = type;
+            author.AddBook(this);
         }
 
         public string GetName()
@@ -66,11 +67,25 @@ namespace Library
             if (year> now.Year) throw new ArgumentException("invalid publication year.", nameof(year));
             this._Year_of_publication = year;
         }
-        public void SetAuthor(Author author)
+        public void SetAuthor(Author other)
         {
-            if (author == null)
-                throw new ArgumentNullException(nameof(author));
-            this._Author = author;
+            if (other == null)
+            {
+                throw new ArgumentNullException(nameof(other));
+            }
+
+            if (other == this._Author)
+            {
+                return;
+            }
+
+            Author oldAuthor = this._Author;
+
+            oldAuthor.RemoveBook(this);
+
+            this._Author = other;
+
+            this._Author.AddBook(this);
         }
         public void SetType(BookType type)
         {
