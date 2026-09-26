@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Text;
+
 
 namespace Library
 {
@@ -27,6 +25,7 @@ namespace Library
         public Book(string name, int year, Author author, BookType type)
         {
             DateTime now = DateTime.Now;
+            if (author == null) throw new ArgumentNullException(nameof(author));
             if (!Enum.IsDefined(typeof(BookType), type)) throw new ArgumentException("invalid book type.", nameof(type));
             if (year > now.Year) throw new ArgumentException("invalid publication year.", nameof(year));
             if (name == null) throw new ArgumentException("book name cannot be null");
@@ -42,12 +41,12 @@ namespace Library
         {
             return this._Name;
         }
-        public int GetpublicationYear()
+        public int GetPublicationYear()
         {
             return this._Year_of_publication;
         }
         public Author GetAuthor()
-        {
+        { 
             return this._Author;
         }
         public BookType GetBookType()
@@ -69,6 +68,8 @@ namespace Library
         }
         public void SetAuthor(Author author)
         {
+            if (author == null)
+                throw new ArgumentNullException(nameof(author));
             this._Author = author;
         }
         public void SetType(BookType type)
