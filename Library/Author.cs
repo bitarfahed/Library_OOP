@@ -52,6 +52,15 @@ namespace Library
             {
                 throw new ArgumentNullException(nameof(book));
             }
+            
+            /*
+             Because of the book addition mechanism that doesn't allow more than 1 existance of the same book in the list,
+            we don't need to check all books, all books but 1 will be different. 
+            So, basically, a foreach loop is good enought:
+            foreach (Book b in this._Written_books)
+            { if (b == book) this._Written_books.Remove(b); }
+            still, I decide to keep this more complex for loop on purpose
+             */
             for (int i = 0; i < this._Written_books.Count; i++)
             {
                 if (this._Written_books[i] == book)
