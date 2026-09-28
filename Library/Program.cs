@@ -1,16 +1,13 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 
-//suggested and coded by ChatGPT
+// Suggested and coded by ChatGPT
 namespace Library
 {
     internal class Program
     {
         private static readonly Library library = new Library();
-
-        private static readonly List<Book> books = new List<Book>();
-        private static readonly List<Author> authors = new List<Author>();
-        private static readonly List<LibraryMember> members = new List<LibraryMember>();
 
         static void Main()
         {
@@ -112,6 +109,8 @@ namespace Library
             Console.WriteLine("=============== BOOKS ===============");
             Console.WriteLine();
 
+            List<Book> books = library.GetBooks();
+
             if (books.Count == 0)
             {
                 ShowMessage("There are no books.");
@@ -135,6 +134,8 @@ namespace Library
             Console.WriteLine("=============== ADD BOOK ===============");
             Console.WriteLine();
 
+            List<Author> authors = library.GetAuthors();
+
             if (authors.Count == 0)
             {
                 ShowMessage("You must add an author first.");
@@ -154,8 +155,6 @@ namespace Library
             try
             {
                 Book book = new Book(name, year, author, type);
-
-                books.Add(book);
                 library.AddBook(book);
 
                 ShowMessage("Book added successfully.");
@@ -180,7 +179,6 @@ namespace Library
             try
             {
                 library.RemoveBook(book);
-                books.Remove(book);
 
                 ShowMessage("Book removed successfully.");
             }
@@ -264,6 +262,8 @@ namespace Library
             Console.WriteLine("============== AUTHORS ==============");
             Console.WriteLine();
 
+            List<Author> authors = library.GetAuthors();
+
             if (authors.Count == 0)
             {
                 ShowMessage("There are no authors.");
@@ -297,7 +297,6 @@ namespace Library
                     nationality,
                     gender);
 
-                authors.Add(author);
                 library.AddAuthor(author);
 
                 ShowMessage("Author added successfully.");
@@ -322,10 +321,6 @@ namespace Library
             try
             {
                 library.RemoveAuthor(author);
-
-                authors.Remove(author);
-
-                books.RemoveAll(book => book.GetAuthor() == author);
 
                 ShowMessage("Author removed successfully.");
             }
@@ -403,7 +398,9 @@ namespace Library
                         else
                         {
                             foreach (string award in awards)
+                            {
                                 Console.WriteLine($"- {award}");
+                            }
                         }
 
                         Pause();
@@ -518,6 +515,8 @@ namespace Library
             Console.WriteLine("============== MEMBERS ==============");
             Console.WriteLine();
 
+            List<LibraryMember> members = library.GetMembers();
+
             if (members.Count == 0)
             {
                 ShowMessage("There are no members.");
@@ -562,9 +561,6 @@ namespace Library
                     type,
                     status);
 
-                members.Add(member);
-
-                // Note: Library.AddMember currently contains a logic bug.
                 library.AddMember(member);
 
                 ShowMessage("Member added successfully.");
@@ -589,7 +585,6 @@ namespace Library
             try
             {
                 library.RemoveMember(member);
-                members.Remove(member);
 
                 ShowMessage("Member removed successfully.");
             }
@@ -806,6 +801,8 @@ namespace Library
 
         private static Author SelectAuthor()
         {
+            List<Author> authors = library.GetAuthors();
+
             if (authors.Count == 0)
             {
                 ShowMessage("There are no authors.");
@@ -816,7 +813,9 @@ namespace Library
             Console.WriteLine();
 
             for (int i = 0; i < authors.Count; i++)
+            {
                 Console.WriteLine($"{i + 1}. {authors[i].GetName()}");
+            }
 
             Console.WriteLine();
 
@@ -833,6 +832,8 @@ namespace Library
 
         private static Book SelectBook()
         {
+            List<Book> books = library.GetBooks();
+
             if (books.Count == 0)
             {
                 ShowMessage("There are no books.");
@@ -843,7 +844,9 @@ namespace Library
             Console.WriteLine();
 
             for (int i = 0; i < books.Count; i++)
+            {
                 Console.WriteLine($"{i + 1}. {books[i].GetName()}");
+            }
 
             Console.WriteLine();
 
@@ -860,6 +863,8 @@ namespace Library
 
         private static LibraryMember SelectMember()
         {
+            List<LibraryMember> members = library.GetMembers();
+
             if (members.Count == 0)
             {
                 ShowMessage("There are no members.");
@@ -870,7 +875,9 @@ namespace Library
             Console.WriteLine();
 
             for (int i = 0; i < members.Count; i++)
+            {
                 Console.WriteLine($"{i + 1}. {members[i].GetName()}");
+            }
 
             Console.WriteLine();
 
@@ -915,7 +922,9 @@ namespace Library
                 Console.WriteLine("Book type:");
 
                 for (int i = 0; i < types.Length; i++)
+                {
                     Console.WriteLine($"{i + 1}. {types[i]}");
+                }
 
                 int choice = ReadInt("Type: ");
 
