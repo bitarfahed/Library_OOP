@@ -6,13 +6,13 @@ namespace Library
 {
     internal class Library
     {
-        public List<Book> _Books_In_Library;
-        public List<Author> _Authors_In_Library;
-        public List<LibraryMember> _Members_In_Library;
+        private List<Book> _Books_In_Library;
+        private List<Author> _Authors_In_Library;
+        private List<LibraryMember> _Members_In_Library;
 
         public Library()
         {
-            Console.WriteLine("haha");
+            
         }
 
         public void AddBookToLibrary(Book b)
@@ -31,7 +31,7 @@ namespace Library
 
         public void RemoveBookFromLibrary(Book b)
         {
-            if (this._Books_In_Library.Contains(b)) this._Books_In_Library.Remove(b);
+            if (this._Books_In_Library.Contains(b)) this._Books_In_Library.Remove(b); 
         }
         public void RemoveMemberFromLibrary(LibraryMember m)
         {

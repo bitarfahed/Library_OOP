@@ -18,21 +18,22 @@ namespace Library
     {
         private List<Book> _Borrowed_Books;
         private int _Join_Year;
-        public readonly int _Max_Borrowed_books;
         private MembershipType _Type;
         private MembershipStatus _Status;
         public LibraryMember(string name, int birthyear, string nationality, Gender gender,
-            int join_year, MembershipType type, MembershipStatus status)
+                             int join_year, MembershipType type, MembershipStatus status)
             : base(name, birthyear, nationality, gender)
         {
 
-            if(join_year>DateTime.Now.Year) throw new ArgumentException("invalid join-year. ", nameof(birthyear));
+            if (join_year > DateTime.Now.Year) throw new ArgumentException("invalid join-year. ", nameof(join_year));
             this._Join_Year = join_year;
             _Borrowed_Books = new List<Book>();
             this._Type = type;
-            if (this._Type == MembershipType.Paid) this._Max_Borrowed_books = 10;
-            else this._Max_Borrowed_books = 5;
             this._Status = status;
+        }
+        public int GetMaxBorrowedBooks()
+        {
+            return _Type == MembershipType.Paid ? 10 : 5;
         }
         public int GetJoinYear()
         {
@@ -43,8 +44,7 @@ namespace Library
             return this._Type;
         }
         public void SetMembershipType(MembershipType type)
-        {
-            this._Type = type;
+        { 
         }
         public MembershipStatus GetMembershipStatus()
         {
@@ -60,7 +60,7 @@ namespace Library
         {
             if (book == null) throw new ArgumentNullException(nameof(book));
             if (this._Status == MembershipStatus.Passive) throw new ArgumentException("This is a Passive member and couldn't borrow any book."); 
-            if (this.GetBorrowedBooksNumber() >= _Max_Borrowed_books) throw new ArgumentException("This Library Memebr has many books, Cannot borrow any additional book");
+            if (this.GetBorrowedBooksNumber() >= this.GetMaxBorrowedBooks()) throw new ArgumentException("This Library Memebr has many books, Cannot borrow any additional book");
             if (this._Borrowed_Books.Contains(book)) throw new ArgumentException("This Library member already borrows this book. ");
 
             this._Borrowed_Books.Add(book);
@@ -72,8 +72,7 @@ namespace Library
             {
                 throw new ArgumentNullException(nameof(book));
             }
-            if (this._Borrowed_Books.Contains(book)) this._Borrowed_Books.Remove(book); // if book exists
-            //if book doesn't exist,
+            if (this._Borrowed_Books.Contains(book)) this._Borrowed_Books.Remove(book);
         }
         public void ReturnAllBook()
         {

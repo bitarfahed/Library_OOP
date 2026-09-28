@@ -68,8 +68,6 @@ namespace Library
                 this._Awards.Add(award);
         }
 
-
-        //remove awards
         public void RemoveAward(string award)
         {
             if (string.IsNullOrWhiteSpace(award))
@@ -82,7 +80,6 @@ namespace Library
         {
             this._Awards.Clear();
         }
-        //remove all awards
 
 
     }
