@@ -16,6 +16,22 @@ namespace Library
             this._Members_In_Library = new List<LibraryMember>();
         }
 
+
+
+        public List<Book> GetBooks()
+        {
+            return new List<Book>(_Books_In_Library);
+        }
+
+        public List<Author> GetAuthors()
+        {
+            return new List<Author>(_Authors_In_Library);
+        }
+
+        public List<LibraryMember> GetMembers()
+        {
+            return new List<LibraryMember>(_Members_In_Library);
+        }
         // -------------------- Books --------------------
 
         public void AddBook(Book book)
