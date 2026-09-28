@@ -16,7 +16,7 @@ namespace Library
     }
     public class LibraryMember : Human
     {
-        public List<Book> _Borrowed_Books;
+        private List<Book> _Borrowed_Books;
         private int _Join_Year;
         public readonly int _Max_Borrowed_books;
         private MembershipType _Type;

@@ -64,16 +64,26 @@ namespace Library
             {
                 throw new ArgumentException("Award cannot be null or whitespace.");
             }
-
-            this._Awards.Add(award);
+            if (!this._Awards.Contains(award))
+                this._Awards.Add(award);
         }
 
 
-        //set awards
+        //remove awards
+        public void RemoveAward(string award)
+        {
+            if (string.IsNullOrWhiteSpace(award))
+            {
+                throw new ArgumentException("Award cannot be null or whitespace.");
+            }
+            if (this._Awards.Contains(award)) this._Awards.Remove(award);
+        }
+        public void RemoveAllAwards()
+        {
+            this._Awards.Clear();
+        }
+        //remove all awards
 
 
-        //set written books
-
-        //remove book
     }
 }
