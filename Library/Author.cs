@@ -30,6 +30,10 @@ namespace Library
                    $"Books Written: {_Written_books.Count}, " +
                    $"Awards: {_Awards.Count}";
         }
+        public List<Book> GetWrittenBooks()
+        {
+            return new List<Book>(_Written_books);
+        }
 
         public int GetWrittenBooksNumber()
         {

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-
+ // coded by ChatGPT
 namespace Library
 {
     internal class Library
@@ -12,53 +11,96 @@ namespace Library
 
         public Library()
         {
-            
+            _Books_In_Library = new List<Book>();
+            _Authors_In_Library = new List<Author>();
+            _Members_In_Library = new List<LibraryMember>();
         }
 
-        public void AddBookToLibrary(Book b)
+        // -------------------- Books --------------------
+
+        public void AddBook(Book book)
         {
-            if(!this._Books_In_Library.Contains(b))
-                this._Books_In_Library.Add(b);
-        }
-        public void AddAuthorToLibrary(Author a)
-        {
-            if (!this._Authors_In_Library.Contains(a)) this._Authors_In_Library.Add(a);
-        }
-        public void AddMemberToLibrary(LibraryMember m)
-        {
-            if (!this._Members_In_Library.Contains(m)) this._Members_In_Library.Add(m);
+            if (book == null)
+                throw new ArgumentNullException(nameof(book));
+
+            if (!this._Books_In_Library.Contains(book))  this._Books_In_Library.Add(book);
+
+            if (!this._Authors_In_Library.Contains(book.GetAuthor()))
+                this._Authors_In_Library.Add(book.GetAuthor());
         }
 
-        public void RemoveBookFromLibrary(Book b)
+        public void RemoveBook(Book book)
         {
-            if (this._Books_In_Library.Contains(b)) this._Books_In_Library.Remove(b); 
-        }
-        public void RemoveMemberFromLibrary(LibraryMember m)
-        {
-            if (this._Members_In_Library.Contains(m)) this._Members_In_Library.Remove(m);
-        }
-        public void RemoveAuthorFromLibrary(Author a)
-        {
-            if (this._Authors_In_Library.Contains(a)) this._Authors_In_Library.Remove(a);
-            for(int i =0; i<this._Books_In_Library.Count; i++)
+            if (book == null)
+                throw new ArgumentNullException(nameof(book));
+
+            if (!this._Books_In_Library.Contains(book))
+                return;
+
+            // Remove the book from every member who borrowed it
+            foreach (LibraryMember member in this._Members_In_Library)
             {
-                Book b = this._Books_In_Library[i];
-                if (b.GetAuthor() == a)
-                { this._Books_In_Library.Remove(b); i--; }
-
+                member.ReturnBook(book);
             }
+
+            // Remove the book from its author
+            book.GetAuthor().RemoveBook(book);
+
+            // Remove the book from the library
+            this._Books_In_Library.Remove(book);
         }
-        public void PrintBooks()
+
+        // -------------------- Authors --------------------
+
+        public void AddAuthor(Author author)
         {
-            foreach (Book b in this._Books_In_Library) { b.ToString(); Console.WriteLine(); }
+            if (author == null)
+                throw new ArgumentNullException(nameof(author));
+
+            if (!_Authors_In_Library.Contains(author)) this._Authors_In_Library.Add(author);
         }
-        public void PrintMembers()
+
+        public void RemoveAuthor(Author author)
         {
-            foreach (LibraryMember m in this._Members_In_Library) { m.ToString(); Console.WriteLine(); }
+            if (author == null)
+                throw new ArgumentNullException(nameof(author));
+
+            if (!_Authors_In_Library.Contains(author))
+                return;
+
+            // Get a copy so RemoveBook() can safely modify the library
+            List<Book> books = author.GetWrittenBooks();
+
+            foreach (Book book in books)
+            {
+                RemoveBook(book);
+            }
+
+            this._Authors_In_Library.Remove(author);
         }
-        public void PrintAuthors()
+
+        // -------------------- Members --------------------
+
+        public void AddMember(LibraryMember member)
         {
-            foreach (Author a in this._Authors_In_Library) { a.ToString(); Console.WriteLine(); }
+            if (member == null)
+                throw new ArgumentNullException(nameof(member));
+
+            if (this._Members_In_Library.Contains(member)) this._Members_In_Library.Add(member);
+        }
+
+        public void RemoveMember(LibraryMember member)
+        {
+            if (member == null)
+                throw new ArgumentNullException(nameof(member));
+
+            if (!this._Members_In_Library.Contains(member))
+                return;
+
+            // The books remain in the library.
+            member.ReturnAllBook();
+
+            this._Members_In_Library.Remove(member);
         }
     }
 }
