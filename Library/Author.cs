@@ -71,7 +71,6 @@ namespace Library
             if (!this._Awards.Contains(award))
                 this._Awards.Add(award);
         }
-
         public void RemoveAward(string award)
         {
             if (string.IsNullOrWhiteSpace(award))

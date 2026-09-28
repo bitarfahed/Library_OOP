@@ -44,7 +44,8 @@ namespace Library
             return this._Type;
         }
         public void SetMembershipType(MembershipType type)
-        { 
+        {
+            this._Type = type;
         }
         public MembershipStatus GetMembershipStatus()
         {

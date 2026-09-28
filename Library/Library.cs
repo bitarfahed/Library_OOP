@@ -11,9 +11,9 @@ namespace Library
 
         public Library()
         {
-            _Books_In_Library = new List<Book>();
-            _Authors_In_Library = new List<Author>();
-            _Members_In_Library = new List<LibraryMember>();
+            this._Books_In_Library = new List<Book>();
+            this._Authors_In_Library = new List<Author>();
+            this._Members_In_Library = new List<LibraryMember>();
         }
 
         // -------------------- Books --------------------
@@ -83,10 +83,9 @@ namespace Library
 
         public void AddMember(LibraryMember member)
         {
-            if (member == null)
-                throw new ArgumentNullException(nameof(member));
-
-            if (this._Members_In_Library.Contains(member)) this._Members_In_Library.Add(member);
+            if (member == null) throw new ArgumentNullException(nameof(member));
+            if (!this._Members_In_Library.Contains(member))
+                this._Members_In_Library.Add(member);
         }
 
         public void RemoveMember(LibraryMember member)

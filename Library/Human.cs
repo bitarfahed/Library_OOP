@@ -42,16 +42,16 @@ namespace Library
             this._Gender = gender;
         }
 
-        protected string GetName()
+        public string GetName()
         {
             return this._Name;
         }
 
-        protected string GetNationality()
+        public string GetNationality()
         {
             return this._Nationality;
         }
-        protected int GetBirthYear()
+        public int GetBirthYear()
         {
             return this._BirthYear;
         }
@@ -73,11 +73,11 @@ namespace Library
             if (string.IsNullOrWhiteSpace(name)) throw new ArgumentException("human name cannot be whitespaces", nameof(name));
             this._Name = name;
         }
-        protected int GetAge()
+        public int GetAge()
         {
             return DateTime.Now.Year - this._BirthYear;
         }
-        protected Gender GetGender()
+        public Gender GetGender()
         {
             return this._Gender;
         }
