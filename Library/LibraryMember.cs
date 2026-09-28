@@ -75,7 +75,10 @@ namespace Library
             if (this._Borrowed_Books.Contains(book)) this._Borrowed_Books.Remove(book); // if book exists
             //if book doesn't exist,
         }
-
+        public void ReturnAllBook()
+        {
+            this._Borrowed_Books.Clear();
+        }
         public List<Book> GetBorrowedBooks()
         {
             return new List<Book>(this._Borrowed_Books);
